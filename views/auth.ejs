@@ -1,32 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
+    <title>
+        <%= title %>
+    </title>
     <link rel="stylesheet" href="/css/auth.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
+
 <body>
     <div class="card">
-    <h2><%= title %></h2>
-    <form action="<%= formAction %>" method="POST" enctype="multipart/form-data">
-        <div>
-            <label>Email</label>
-            <input type="email" name="email" required />
-        </div>
-        <div>
-            <label>Password</label>
-            <input type="password" name="password" required />
-        </div>
-        <% if (title === "Register") { %>
-        <div>
-            <label>Profile Picture</label>
-            <input type="file" name="profilePic" accept="image/*" />
-        </div>
-        <% } %>
-        <button type="submit"><%= buttonText %></button>
-    </form>
-    <p>Already have an account? <a href="<%= linkUrl %>"><%= linkText %></a></p>
+        <h2>
+            <%= title %>
+        </h2>
+        <form action="<%= formAction %>" method="POST" <% if (title === "Register") { %>enctype="multipart/form-data"<% } %> data-page="<%= title %>">
+
+            <% if (typeof responseError !== 'undefined' && responseError) { %>
+                <div class="api-error">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <%= responseError %>
+                </div>
+            <% } %>
+
+            <div>
+                <label>Email</label>
+                <input type="email" name="email" required />
+            </div>
+            <div class="password-wrapper">
+                <label>Password</label>
+                <div class="password-input-group">
+                    <input type="password" name="password" id="password" required />
+                    <button type="button" id="togglePassword">
+                        <i class="fa-regular fa-eye" id="eyeIcon"></i>
+                    </button>
+                </div>
+                <span class="error-msg" id="passwordError"></span>
+            </div>
+            <% if (title==="Register" ) { %>
+                <div>
+                    <label>Profile Picture</label>
+                    <input type="file" name="profilePic" accept="image/*" />
+                </div>
+                <% } %>
+                    <button type="submit">
+                        <%= buttonText %>
+                    </button>
+        </form>
+        <p>Already have an account? <a href="<%= linkUrl %>">
+                <%= linkText %>
+            </a></p>
     </div>
+    <script>
+        const toggle = document.getElementById("togglePassword");
+        const passwordInput = document.getElementById("password");
+        const eyeIcon = document.getElementById("eyeIcon");
+
+        toggle.addEventListener("click", () => {
+            const isHidden = passwordInput.type === "password";
+            passwordInput.type = isHidden ? "text" : "password";
+            eyeIcon.className = isHidden ? "fa-regular fa-eye-slash" : "fa-regular fa-eye";
+        });
+
+        const form = document.querySelector("form");
+        const passwordError = document.getElementById("passwordError");
+
+        if (form.dataset.page === "Register") {
+            form.addEventListener("submit", (e) => {
+                const len = passwordInput.value.length;
+                if (len < 8 || len > 20) {
+                    e.preventDefault();
+                    passwordError.textContent = len < 8
+                        ? "Password must be at least 8 characters."
+                        : "Password must not exceed 20 characters.";
+                } else {
+                    passwordError.textContent = "";
+                }
+            });
+        }
+    </script>
 </body>
+
 </html>

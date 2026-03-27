@@ -10,6 +10,7 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 const authRoutes = require("./routes/authRoutes");
+const chatRoutes = require("./routes/chatRoutes");
 
 
 // Indicating the server to use ejs templates
@@ -24,6 +25,7 @@ app.use(express.static("public"));
 
 
 app.use("/auth", authRoutes);
+app.use("/chat", chatRoutes);
 
 
 

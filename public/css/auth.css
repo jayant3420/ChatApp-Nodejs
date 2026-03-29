@@ -133,3 +133,7 @@ a:hover {
     margin-top: 0.3rem;
     display: block;
 }
+
+.imp_field {
+    color: #e53935;
+}

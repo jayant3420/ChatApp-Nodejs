@@ -5,7 +5,7 @@ const constant = require("../config/constant");
 
 const register = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { name, email, password } = req.body;
         const file = req.file;
 
         // Checking for existing user
@@ -20,6 +20,7 @@ const register = async (req, res) => {
 
         // Create User
         await UserModal.create({
+            name,
             email,
             password: hashedPassword,
             profilePic: file ? file.filename : ""

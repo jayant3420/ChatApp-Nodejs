@@ -1,0 +1,33 @@
+<!-- ───────── NEW CHAT MODAL ───────── -->
+<div class="modal-overlay hidden" id="newChatModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>New Conversation</h3>
+            <button class="icon-btn" id="closeModal"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="modalSearchInput" placeholder="Search people to add..." />
+        </div>
+        <ul class="modal-user-list">
+            <% users.forEach((item) => { %>
+                <li class="modal-user-item">
+                    <label>
+                        <input type="checkbox" value="<%= item._id %>" />
+                        <div class="avatar xs" data-color="<%= getRandomColor() %>">
+                            <%= getUserShortName(item.name) %>
+                        </div>
+                        <span><%= item.name %></span>
+                    </label>
+                </li>
+            <% }) %>
+        </ul>
+        <div class="modal-footer">
+            <span class="selected-count" id="selectedCount">0 selected</span>
+            <button class="btn-primary" id="startChatBtn">Start Chat</button>
+        </div>
+    </div>
+</div>
+
+
+

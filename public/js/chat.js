@@ -3,6 +3,11 @@ document.getElementById("sidebarToggle")?.addEventListener("click", () => {
     document.querySelector(".sidebar").classList.toggle("collapsed");
 });
 
+// ─── AVATAR COLORS ───
+document.querySelectorAll(".avatar[data-color]").forEach(el => {
+    el.style.background = el.dataset.color;
+});
+
 // ─── TABS ───
 document.querySelectorAll(".tab").forEach((tab) => {
     tab.addEventListener("click", () => {

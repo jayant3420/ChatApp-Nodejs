@@ -4,6 +4,7 @@ require("./config/db")();
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 const server = http.createServer(app);
@@ -18,6 +19,9 @@ app.set("view engine", "ejs");
 
 // to use form data
 app.use(express.urlencoded({extended: true}));
+
+// to parse cookies
+app.use(cookieParser());
 
 // serve static files from public/
 app.use(express.static("public"));

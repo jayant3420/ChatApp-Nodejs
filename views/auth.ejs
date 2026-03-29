@@ -16,38 +16,46 @@
         <h2>
             <%= title %>
         </h2>
-        <form action="<%= formAction %>" method="POST" <% if (title === "Register") { %>enctype="multipart/form-data"<% } %> data-page="<%= title %>">
+        <form action="<%= formAction %>" method="POST" <% if (title==="Register" ) { %>enctype="multipart/form-data"<% }
+                %> data-page="<%= title %>">
 
-            <% if (typeof responseError !== 'undefined' && responseError) { %>
-                <div class="api-error">
-                    <i class="fa-solid fa-circle-exclamation"></i>
-                    <%= responseError %>
-                </div>
-            <% } %>
+                    <% if (typeof responseError !=='undefined' && responseError) { %>
+                        <div class="api-error">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <%= responseError %>
+                        </div>
+                        <% } %>
 
-            <div>
-                <label>Email</label>
-                <input type="email" name="email" required />
-            </div>
-            <div class="password-wrapper">
-                <label>Password</label>
-                <div class="password-input-group">
-                    <input type="password" name="password" id="password" required />
-                    <button type="button" id="togglePassword">
-                        <i class="fa-regular fa-eye" id="eyeIcon"></i>
-                    </button>
-                </div>
-                <span class="error-msg" id="passwordError"></span>
-            </div>
-            <% if (title==="Register" ) { %>
-                <div>
-                    <label>Profile Picture</label>
-                    <input type="file" name="profilePic" accept="image/*" />
-                </div>
-                <% } %>
-                    <button type="submit">
-                        <%= buttonText %>
-                    </button>
+                            <% if (title==="Register" ) { %>
+                                <div>
+                                    <label>Name<span class="imp_field">*</span></label>
+                                    <input type="text" name="name" required />
+                                </div>
+                                <% } %>
+
+                                    <div>
+                                        <label>Email<span class="imp_field">*</span></label>
+                                        <input type="email" name="email" required />
+                                    </div>
+                                    <div class="password-wrapper">
+                                        <label>Password<span class="imp_field">*</span></label>
+                                        <div class="password-input-group">
+                                            <input type="password" name="password" id="password" required />
+                                            <button type="button" id="togglePassword">
+                                                <i class="fa-regular fa-eye" id="eyeIcon"></i>
+                                            </button>
+                                        </div>
+                                        <span class="error-msg" id="passwordError"></span>
+                                    </div>
+                                    <% if (title==="Register" ) { %>
+                                        <div>
+                                            <label>Profile Picture<span class="imp_field">*</span></label>
+                                            <input type="file" name="profilePic" accept="image/*" required />
+                                        </div>
+                                        <% } %>
+                                            <button type="submit">
+                                                <%= buttonText %>
+                                            </button>
         </form>
         <p>Already have an account? <a href="<%= linkUrl %>">
                 <%= linkText %>

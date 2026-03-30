@@ -45,15 +45,18 @@ const login = async (req, res) => {
         const isPwdMatch = await bcrypt.compare(password, user.password);
         if (!isPwdMatch) return res.render("auth", { ...constant.LOGIN, responseError: "Wrong password" });
 
+        const maxAge = Number(process.env.SESSION_MAX_AGE_MS);
+
         // Creating a new session
         const sessionRes = await SessionModal.create({
-            userId: user._id
+            userId: user._id,
+            expiresAt: new Date(Date.now() + maxAge)
         })
 
         // Setting cookies
         res.cookie("chat_app_session", sessionRes?._id?.toString(), {
             httpOnly: true,
-            maxAge: 86400000
+            maxAge
         })
 
         // redirecting

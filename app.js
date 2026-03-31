@@ -5,6 +5,7 @@ const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
 const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 
 const app = express();
 const server = http.createServer(app);
@@ -22,6 +23,9 @@ app.use(express.urlencoded({extended: true}));
 
 // to parse cookies
 app.use(cookieParser());
+
+// to parse body of request
+app.use(bodyParser.json());
 
 // serve static files from public/
 app.use(express.static("public"));

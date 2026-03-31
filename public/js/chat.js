@@ -45,12 +45,46 @@ modal.addEventListener("click", (e) => {
 });
 
 // ─── CHECKBOX COUNT ───
+let selectedUsers = [];
 document.querySelectorAll(".modal-user-list input[type='checkbox']").forEach(cb => {
     cb.addEventListener("change", () => {
-        const count = document.querySelectorAll(".modal-user-list input:checked").length;
+        const selectedCheckBoxes = document.querySelectorAll(".modal-user-list input:checked");
+        const count = selectedCheckBoxes.length;
+        if(cb.checked) {
+            selectedUsers.push(cb.value);
+        } else {
+            selectedUsers = selectedUsers.filter(id => cb.value !== id);
+        }
         document.getElementById("selectedCount").textContent = `${count} selected`;
+        if(selectedUsers.length > 0) {
+            document.getElementById("startChatBtn").disabled = false;
+        }
     });
 });
+
+
+// START CHAT
+document.getElementById("startChatBtn").addEventListener("click", async () => {
+    if(selectedUsers.length === 0) return;
+    try {
+        const response = await fetch("/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ participants: selectedUsers })
+        });
+
+        if(response.ok) {
+            const chat = await response.json();
+            console.log("chat created ==>>", chat);
+            // Optionally, you can redirect to the new chat or update the UI
+            // window.location.href = `/chats/${chat._id}`;
+        } else {
+            console.error("Failed to create chat");
+        }
+    } catch (error) {
+        console.error("Error initiating chat:", error);
+    }
+})
 
 // ─── SEND MESSAGE ───
 const messageInput = document.getElementById("messageInput");

@@ -6,7 +6,8 @@ const chatController = require("../controllers/chat.controller");
 
 router.use(authMiddleware);
 router.route("/")
-    .get(chatController.getChatPage);
+    .get(chatController.getChatPage)
+    .post(chatController.createChat)
 
 
 module.exports = router;

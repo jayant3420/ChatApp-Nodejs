@@ -2,16 +2,16 @@ const SessionModal = require("../modals/Session");
 
 const authMiddleware = async (req, res, next) => {
     try {
-        // checking the session is valid or not
-        const session = await SessionModal.findById(sessionId).populate("userId");
-        if(!session) return res.redirect("/auth/login");
-
         // checking the session cookie is present or not
         const sessionId = req.cookies["chat_app_session"];
         if(!sessionId) return res.redirect("/auth/login");
 
+        // checking the session is valid or not
+        const session = await SessionModal.findById(sessionId).populate("userId");
+        if(!session) return res.redirect("/auth/login");
+
         // Checking if session is expired or not
-        if(session.expiredAt < new Date()) {
+        if(session.expiresAt < new Date()) {
             await SessionModal.findByIdAndDelete(sessionId);
             res.clearCookie("chat_app_session");
             return res.redirect("/auth/login");

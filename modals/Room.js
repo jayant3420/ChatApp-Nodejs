@@ -27,10 +27,7 @@ const roomSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // fetch all rooms of a user sorted by latest message
-roomSchema.index({ users: 1, lastMessageAt: -1 });
-
-// fast lookup by roomKey (already unique but explicit index helps query planner)
-roomSchema.index({ roomKey: 1 });
+roomSchema.index({ participants: 1, lastMessageAt: -1 });
 
 // fetch group rooms quickly
 roomSchema.index({ isGroup: 1 });

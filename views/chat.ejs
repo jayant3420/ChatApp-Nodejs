@@ -112,7 +112,8 @@
                             </div>
                             <span class="chat-preview">john@example.com</span>
                         </div>
-                        <button class="start-chat-btn tooltip" data-tip="Start conversation"><i class="fa-solid fa-message"></i></button>
+                        <button class="start-chat-btn tooltip" data-tip="Start conversation"><i
+                                class="fa-solid fa-message"></i></button>
                     </li>
                     <li class="chat-item" data-user-id="u2">
                         <div class="avatar" style="background:#f59e0b;">RK</div>
@@ -122,7 +123,8 @@
                             </div>
                             <span class="chat-preview">riya@example.com</span>
                         </div>
-                        <button class="start-chat-btn tooltip" data-tip="Start conversation"><i class="fa-solid fa-message"></i></button>
+                        <button class="start-chat-btn tooltip" data-tip="Start conversation"><i
+                                class="fa-solid fa-message"></i></button>
                     </li>
                     <li class="chat-item" data-user-id="u3">
                         <div class="avatar" style="background:#10b981;">AM</div>
@@ -133,7 +135,8 @@
                             </div>
                             <span class="chat-preview">aman@example.com</span>
                         </div>
-                        <button class="start-chat-btn tooltip" data-tip="Start conversation"><i class="fa-solid fa-message"></i></button>
+                        <button class="start-chat-btn tooltip" data-tip="Start conversation"><i
+                                class="fa-solid fa-message"></i></button>
                     </li>
                 </ul>
             </div>
@@ -158,7 +161,8 @@
             <div class="empty-state" id="emptyState">
                 <i class="fa-solid fa-comments fa-3x"></i>
                 <h2>Your messages</h2>
-                <p>Select a chat from the list, or click the <i class="fa-solid fa-pen-to-square"></i> icon in the top-left to start a new conversation.</p>
+                <p>Select a chat from the list, or click the <i class="fa-solid fa-pen-to-square"></i> icon in the
+                    top-left to start a new conversation.</p>
             </div>
 
             <!-- Chat Window (hidden by default) -->
@@ -249,7 +253,11 @@
 
     <%- include('partials/newChatModal', { users: users, getUserShortName, getRandomColor }) %>
 
-    <script src="/js/chat.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/socket.js"></script>
+    <script src="/js/sidebar.js"></script>
+    <script src="/js/modal.js"></script>
+    <script src="/js/messages.js"></script>
 </body>
 
 </html>

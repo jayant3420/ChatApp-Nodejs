@@ -13,146 +13,7 @@
 
     <div class="app">
 
-        <!-- ───────────── SIDEBAR ───────────── -->
-        <aside class="sidebar">
-
-            <!-- Sidebar Header -->
-            <div class="sidebar-header">
-                <button class="icon-btn tooltip" id="sidebarToggle" data-tip="Toggle sidebar">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-                <div class="sidebar-logo">
-                    <i class="fa-solid fa-comments"></i>
-                    <span class="sidebar-text">ChatApp</span>
-                </div>
-                <button class="icon-btn tooltip sidebar-text" id="newChatBtn" data-tip="New conversation">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                </button>
-            </div>
-
-            <!-- Search -->
-            <div class="search-wrapper sidebar-text">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="Search chats or users..." />
-            </div>
-
-            <!-- Tabs -->
-            <div class="sidebar-tabs sidebar-text">
-                <button class="tab active" data-tab="chats">Chats</button>
-                <button class="tab" data-tab="users">People</button>
-            </div>
-
-            <!-- Chat List -->
-            <div class="tab-content active sidebar-text" id="tab-chats">
-                <ul class="chat-list" id="chatList">
-                    <li class="chat-item active" data-chat-id="1">
-                        <div class="avatar">JD</div>
-                        <div class="chat-info">
-                            <div class="chat-meta">
-                                <span class="chat-name">John Doe</span>
-                                <span class="chat-time">2m ago</span>
-                            </div>
-                            <div class="chat-meta">
-                                <span class="chat-preview">Hey! Are you free today?</span>
-                                <span class="badge">3</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="chat-item" data-chat-id="2">
-                        <div class="avatar group-avatar">
-                            <i class="fa-solid fa-users"></i>
-                        </div>
-                        <div class="chat-info">
-                            <div class="chat-meta">
-                                <span class="chat-name">Team Alpha</span>
-                                <span class="chat-time">1h ago</span>
-                            </div>
-                            <div class="chat-meta">
-                                <span class="chat-preview">Riya: Sprint review at 4pm</span>
-                                <span class="badge">7</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="chat-item" data-chat-id="3">
-                        <div class="avatar" style="background: #f59e0b;">RK</div>
-                        <div class="chat-info">
-                            <div class="chat-meta">
-                                <span class="chat-name">Riya Kumar</span>
-                                <span class="chat-time">Yesterday</span>
-                            </div>
-                            <div class="chat-meta">
-                                <span class="chat-preview">Sounds good, will ping you!</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="chat-item" data-chat-id="4">
-                        <div class="avatar" style="background: #10b981;">AM</div>
-                        <div class="chat-info">
-                            <div class="chat-meta">
-                                <span class="chat-name">Aman Mehta</span>
-                                <span class="chat-time">Mon</span>
-                            </div>
-                            <div class="chat-meta">
-                                <span class="chat-preview">Can you share the docs?</span>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- People List -->
-            <div class="tab-content sidebar-text" id="tab-users">
-                <ul class="chat-list" id="userList">
-                    <li class="chat-item" data-user-id="u1">
-                        <div class="avatar" style="background:#8b5cf6;">JD</div>
-                        <div class="chat-info">
-                            <div class="chat-meta">
-                                <span class="chat-name">John Doe</span>
-                                <span class="online-dot"></span>
-                            </div>
-                            <span class="chat-preview">john@example.com</span>
-                        </div>
-                        <button class="start-chat-btn tooltip" data-tip="Start conversation"><i
-                                class="fa-solid fa-message"></i></button>
-                    </li>
-                    <li class="chat-item" data-user-id="u2">
-                        <div class="avatar" style="background:#f59e0b;">RK</div>
-                        <div class="chat-info">
-                            <div class="chat-meta">
-                                <span class="chat-name">Riya Kumar</span>
-                            </div>
-                            <span class="chat-preview">riya@example.com</span>
-                        </div>
-                        <button class="start-chat-btn tooltip" data-tip="Start conversation"><i
-                                class="fa-solid fa-message"></i></button>
-                    </li>
-                    <li class="chat-item" data-user-id="u3">
-                        <div class="avatar" style="background:#10b981;">AM</div>
-                        <div class="chat-info">
-                            <div class="chat-meta">
-                                <span class="chat-name">Aman Mehta</span>
-                                <span class="online-dot"></span>
-                            </div>
-                            <span class="chat-preview">aman@example.com</span>
-                        </div>
-                        <button class="start-chat-btn tooltip" data-tip="Start conversation"><i
-                                class="fa-solid fa-message"></i></button>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Sidebar Footer -->
-            <div class="sidebar-footer">
-                <div class="user-profile">
-                    <div class="avatar sm" style="background:#4f8ef7;">ME</div>
-                    <span class="profile-name sidebar-text">My Account</span>
-                </div>
-                <a href="/auth/logout" class="icon-btn logout-btn tooltip" data-tip="Logout">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                </a>
-            </div>
-
-        </aside>
+        <%- include("partials/chatSideBar", { chatList, getUserShortName, getRandomColor }) %>
 
         <!-- ───────────── CHAT AREA ───────────── -->
         <main class="chat-area" id="chatArea">
@@ -253,11 +114,11 @@
 
     <%- include('partials/newChatModal', { users: users, getUserShortName, getRandomColor }) %>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/js/socket.js"></script>
-    <script src="/js/sidebar.js"></script>
-    <script src="/js/modal.js"></script>
-    <script src="/js/messages.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/socket.js"></script>
+        <script src="/js/sidebar.js"></script>
+        <script src="/js/modal.js"></script>
+        <script src="/js/messages.js"></script>
 </body>
 
 </html>

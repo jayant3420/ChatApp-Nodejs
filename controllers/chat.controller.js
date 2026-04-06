@@ -5,9 +5,22 @@ const crypto = require("crypto");
 
 const getChatPage = async (req, res) => {
     try {
-        const getAllUsersExceptLogedInUser = await UserModal.find({ _id: { $ne: req.user._id } }).lean();
+        const allUserExceptLoggedIn = await UserModal.find({ _id: { $ne: req.user._id } }).lean();
+
+        let userChatLists = await RoomModal.find({ participants: req.user._id}).sort({lastMessageAt: -1, createdAt: -1}).populate("participants", "name email profilePic");
+
+        // Filter participants
+        userChatLists = userChatLists?.map((room) => {
+            const chatUsers = room?.participants?.filter((user) => {
+                return user?._id?.toString() !== req.user._id.toString();
+            })
+            room.participants = chatUsers;
+            return room;
+        })
+
         res.render("chat", {
-            users: getAllUsersExceptLogedInUser,
+            users: allUserExceptLoggedIn,
+            chatList: userChatLists,
             getUserShortName,
             getRandomColor
         });
